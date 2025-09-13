@@ -1,0 +1,8 @@
+pyproject.toml
+src/rice_ml/__init__.py
+src/rice_ml/basic_functions.py
+src/rice_ml.egg-info/PKG-INFO
+src/rice_ml.egg-info/SOURCES.txt
+src/rice_ml.egg-info/dependency_links.txt
+src/rice_ml.egg-info/top_level.txt
+tests/test_basic_functions.py
