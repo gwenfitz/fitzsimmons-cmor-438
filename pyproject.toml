@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "rice_ml"
 version = "0.1.0"
 description = "An example Python project using pyproject.toml"
-authors = [{ name = "Randy R. Davila", email = "randyrdavila@gmail.com" }]
+authors = [{ name = "Gwen FitzSimmons", email = "gwenfitz7@gmail.com" }]
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.9"
@@ -15,13 +15,13 @@ dependencies = ["numpy", "matplotlib", "seaborn", "pandas", "requests"]
 [project.optional-dependencies]
 dev = ["pytest"]
 
-# >>> These two lines make the src/ layout unambiguous <<<
+# ---- CRITICAL for src/ layout ----
 [tool.setuptools]
 package-dir = { "" = "src" }
-
 [tool.setuptools.packages.find]
 where = ["src"]
 
+# Pytest config
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "-ra -q"

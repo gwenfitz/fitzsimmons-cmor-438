@@ -1,3 +1,21 @@
 Metadata-Version: 2.4
 Name: rice_ml
-Version: 0.0.0
+Version: 0.1.0
+Summary: An example Python project using pyproject.toml
+Author-email: Gwen FitzSimmons <gwenfitz7@gmail.com>
+License: MIT
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
+Requires-Dist: pandas
+Requires-Dist: requests
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Dynamic: license-file
+
+# CMOR 438: Data Science and Machine Learning Repo
+
+# Gwen FitzSimmons

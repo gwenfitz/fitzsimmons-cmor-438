@@ -1,4 +1,35 @@
-
-
-
-.venv
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+*.env
+*.venv
+# Build / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+downloads/
+sdist/
+var/
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+nosetests.xml
+coverage.xml
+# Type-check / lint caches
+.mypy_cache/
+.ruff_cache/
+# Jupyter / IDE / OS
+.ipynb_checkpoints
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
