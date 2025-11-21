@@ -8,4 +8,9 @@ src/rice_ml.egg-info/SOURCES.txt
 src/rice_ml.egg-info/dependency_links.txt
 src/rice_ml.egg-info/requires.txt
 src/rice_ml.egg-info/top_level.txt
+src/rice_ml/supervised_learning/__init__.py
+src/rice_ml/supervised_learning/gradient_descent.py
+src/rice_ml/supervised_learning/knn.py
+src/rice_ml/supervised_learning/post_processing.py
+src/rice_ml/supervised_learning/preprocessing.py
 tests/test_basic_functions.py
