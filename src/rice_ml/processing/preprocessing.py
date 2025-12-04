@@ -7,7 +7,6 @@ __all__ = [
     "train_test_split",
 ]
 
-
 def minmax_scale(X: np.ndarray) -> np.ndarray:
     """Scale each feature to [0, 1].
 
