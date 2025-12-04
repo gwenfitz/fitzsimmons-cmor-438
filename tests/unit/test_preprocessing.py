@@ -1,5 +1,5 @@
 import numpy as np
-from rice_ml.supervised_learning.preprocessing import (
+from rice_ml.processing.preprocessing import (
     minmax_scale,
     standardize,
     train_test_split,

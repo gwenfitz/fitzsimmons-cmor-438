@@ -25,7 +25,7 @@ def r2_score(y_true: np.ndarray, y_pred: np.ndarray) -> float:
         if ss_res == 0:
             return 1.0
         raise ValueError("R^2 is undefined when y_true is constant.")
-    return 1 - ss_res/ss_tot
+    return float(1 - ss_res/ss_tot)
 
 
 def confusion_matrix(y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:

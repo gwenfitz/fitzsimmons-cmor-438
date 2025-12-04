@@ -1,6 +1,6 @@
 # Import everything from preprocessing and post_processing
-from .preprocessing import *
-from .post_processing import *
+from ..processing.preprocessing import *
+from ..processing.post_processing import *
 
 # Import other modules/classes explicitly
 from .knn import KNNClassifier, KNNRegressor

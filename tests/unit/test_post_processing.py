@@ -1,5 +1,5 @@
 import numpy as np
-from rice_ml.supervised_learning.post_processing import (
+from rice_ml.processing.post_processing import (
     accuracy_score,
     r2_score,
     confusion_matrix,
@@ -21,7 +21,7 @@ def test_r2_score_nonperfect():
     y_true = np.array([1, 2, 3])
     y_pred = np.array([2, 2, 2])
     r2 = r2_score(y_true, y_pred)
-    assert np.isclose(r2, -0.5)
+    assert r2 == 0.0
 
 
 def test_r2_constant_y_true_perfect_fit():
