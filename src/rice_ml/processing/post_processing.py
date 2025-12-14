@@ -1,8 +1,12 @@
 import numpy as np
 from typing import Any
 
-__all__ = ["accuracy_score", "r2_score", "confusion_matrix"]
-
+__all__ = [
+    "accuracy_score",
+    "r2_score",
+    "mean_squared_error",
+    "confusion_matrix",
+]
 
 def accuracy_score(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     """Compute fraction of correct predictions."""
@@ -27,6 +31,19 @@ def r2_score(y_true: np.ndarray, y_pred: np.ndarray) -> float:
         raise ValueError("R^2 is undefined when y_true is constant.")
     return float(1 - ss_res/ss_tot)
 
+def mean_squared_error(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    """
+    Compute Mean Squared Error (MSE).
+
+    MSE = (1 / n) * Σ (y_i - ŷ_i)²
+    """
+    y_true = np.asarray(y_true, dtype=float)
+    y_pred = np.asarray(y_pred, dtype=float)
+
+    if len(y_true) != len(y_pred):
+        raise ValueError("y_true and y_pred must have same length.")
+
+    return float(np.mean((y_true - y_pred) ** 2))
 
 def confusion_matrix(y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:
     """Compute confusion matrix with classes sorted in increasing order."""
