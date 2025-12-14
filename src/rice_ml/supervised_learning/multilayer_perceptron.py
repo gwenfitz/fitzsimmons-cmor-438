@@ -23,17 +23,7 @@ This implementation demonstrates:
 • How backpropagation computes gradients efficiently
 • Why nonlinear activations are required to solve problems like XOR
 • The relationship between perceptrons, logistic regression, and MLPs
-
-Comparison to Related Models
-----------------------------
-• Perceptron: linear decision boundary only
-• Logistic Regression: linear boundary with probabilistic output
-• Multilayer Perceptron: nonlinear boundaries via hidden layers
-
-This MLP implementation forms the foundation for modern neural
-networks and serves as a conceptual bridge to deeper architectures.
 """
-
 
 from __future__ import annotations
 import numpy as np
@@ -86,25 +76,6 @@ class MultilayerPerceptron:
     Architecture
     ------------
     input → hidden layers (ReLU) → output (sigmoid)
-
-    Training
-    --------
-    • Batch gradient descent
-    • Binary cross-entropy loss
-    • Backpropagation
-
-    Parameters
-    ----------
-    hidden_layers : list[int]
-        Number of neurons in each hidden layer.
-    learning_rate : float
-        Gradient descent step size.
-    max_iter : int
-        Maximum number of training iterations.
-    tol : float
-        Early stopping tolerance.
-    random_state : int or None
-        Random seed.
     """
 
     def __init__(
@@ -124,6 +95,9 @@ class MultilayerPerceptron:
         self.weights_: Optional[List[np.ndarray]] = None
         self.biases_: Optional[List[np.ndarray]] = None
         self.loss_history_: List[float] = []
+
+        # Explicit binary class semantics
+        self.classes_ = np.array([0, 1])
 
         self._rng = np.random.default_rng(random_state)
 
@@ -200,8 +174,9 @@ class MultilayerPerceptron:
     def fit(self, X, y):
         X, y = _validate_inputs(X, y)
 
-        if not np.all(np.isin(np.unique(y), [0, 1])):
-            raise ValueError("MLP supports binary labels 0/1 only.")
+        # Enforce binary labels explicitly
+        if not np.array_equal(np.unique(y), self.classes_):
+            raise ValueError("MLP supports binary labels {0, 1} only.")
 
         self._initialize_parameters(X.shape[1])
 
@@ -241,9 +216,9 @@ class MultilayerPerceptron:
         activations = self._forward(X)
         return activations[-1].ravel()
 
-    def predict(self, X, threshold=0.5):
+    def predict(self, X, threshold: float = 0.5):
         probs = self.predict_proba(X)
-        return (probs >= threshold).astype(int)
+        return np.where(probs >= threshold, self.classes_[1], self.classes_[0])
 
     def score(self, X, y):
         X, y = _validate_inputs(X, y)
