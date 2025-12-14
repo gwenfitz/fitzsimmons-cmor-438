@@ -1,64 +1,39 @@
 """
 Multilayer Perceptron (MLP) — Binary Classification
 
-This module implements a fully-connected Multilayer Perceptron (MLP)
-from scratch using NumPy. The model supports an arbitrary number of
-hidden layers and is trained using batch gradient descent with
+This module implements a fully connected Multilayer Perceptron (MLP)
+from scratch using NumPy. The model supports arbitrary hidden-layer
+architectures and is trained using batch gradient descent with
 backpropagation.
 
-The implementation is intentionally simple and educational, designed
-to complement other supervised learning models in the rice_ml package
-(e.g., Perceptron, LogisticRegression) while demonstrating how nonlinear
-decision boundaries can be learned using layered representations.
-
---------------------------------------------------
-Model Overview
---------------------------------------------------
-• Feedforward neural network
-• Fully connected layers
-• Sigmoid activation for all layers
+Key Characteristics
+-------------------
+• Nonlinear classifier (unlike the single-layer perceptron)
+• Supports one or more hidden layers
+• ReLU activations in hidden layers
+• Sigmoid activation in the output layer
 • Binary cross-entropy loss
-• Batch gradient descent optimization
-• Backpropagation via chain rule
+• Gradient-based optimization (no sklearn)
 
---------------------------------------------------
-Mathematical Formulation
---------------------------------------------------
-Forward pass:
-    z^{(l)} = a^{(l-1)} W^{(l)} + b^{(l)}
-    a^{(l)} = σ(z^{(l)})
+Educational Purpose
+-------------------
+This implementation demonstrates:
 
-Binary cross-entropy loss:
-    L = -1/n ∑ [ y log(ŷ) + (1 - y) log(1 - ŷ) ]
+• How multilayer neural networks extend linear models
+• How backpropagation computes gradients efficiently
+• Why nonlinear activations are required to solve problems like XOR
+• The relationship between perceptrons, logistic regression, and MLPs
 
-Backpropagation:
-    Gradients are computed using the chain rule
-    and propagated backward through the network.
+Comparison to Related Models
+----------------------------
+• Perceptron: linear decision boundary only
+• Logistic Regression: linear boundary with probabilistic output
+• Multilayer Perceptron: nonlinear boundaries via hidden layers
 
---------------------------------------------------
-Design Notes
---------------------------------------------------
-• Output layer has a single neuron with sigmoid activation
-• Supports binary labels {0, 1} only
-• Uses full-batch gradient descent (not mini-batch)
-• No regularization or momentum (by design)
-• Deterministic behavior via random_state
-
---------------------------------------------------
-Intended Use
---------------------------------------------------
-This implementation is designed for:
-• Educational demonstrations
-• Small-to-medium datasets
-• Course projects requiring from-scratch models
-
-It is not intended as a replacement for optimized
-libraries such as PyTorch or TensorFlow.
-
---------------------------------------------------
-Author: Gwenyth FitzSimmons
-Course: CMOR 438
+This MLP implementation forms the foundation for modern neural
+networks and serves as a conceptual bridge to deeper architectures.
 """
+
 
 from __future__ import annotations
 import numpy as np
@@ -92,8 +67,12 @@ def sigmoid(z):
     return 1.0 / (1.0 + np.exp(-z))
 
 
-def sigmoid_derivative(a):
-    return a * (1.0 - a)
+def relu(z):
+    return np.maximum(0.0, z)
+
+
+def relu_derivative(a):
+    return (a > 0).astype(float)
 
 
 # ---------------------------------------------------------------------
@@ -106,7 +85,7 @@ class MultilayerPerceptron:
 
     Architecture
     ------------
-    input → hidden layers → output (sigmoid)
+    input → hidden layers (ReLU) → output (sigmoid)
 
     Training
     --------
@@ -126,24 +105,17 @@ class MultilayerPerceptron:
         Early stopping tolerance.
     random_state : int or None
         Random seed.
-
-    Attributes
-    ----------
-    weights_ : list[np.ndarray]
-        Weight matrices.
-    biases_ : list[np.ndarray]
-        Bias vectors.
     """
 
     def __init__(
         self,
-        hidden_layers: List[int],
+        hidden_layers,
         learning_rate: float = 0.01,
         max_iter: int = 1000,
         tol: float = 1e-6,
         random_state: Optional[int] = None,
     ):
-        self.hidden_layers = hidden_layers
+        self.hidden_layers = list(hidden_layers)
         self.learning_rate = learning_rate
         self.max_iter = max_iter
         self.tol = tol
@@ -151,7 +123,7 @@ class MultilayerPerceptron:
 
         self.weights_: Optional[List[np.ndarray]] = None
         self.biases_: Optional[List[np.ndarray]] = None
-        self.loss_history_: list[float] = []
+        self.loss_history_: List[float] = []
 
         self._rng = np.random.default_rng(random_state)
 
@@ -159,15 +131,20 @@ class MultilayerPerceptron:
     # Initialization
     # ------------------------------------------------------------------
 
-    def _initialize_parameters(self, n_features):
+    def _initialize_parameters(self, n_features: int):
         layer_sizes = [n_features] + self.hidden_layers + [1]
 
         self.weights_ = []
         self.biases_ = []
 
         for i in range(len(layer_sizes) - 1):
-            W = self._rng.normal(0, 0.1, size=(layer_sizes[i], layer_sizes[i + 1]))
-            b = np.zeros((1, layer_sizes[i + 1]))
+            W = self._rng.normal(
+                loc=0.0,
+                scale=1.0 / np.sqrt(layer_sizes[i]),
+                size=(layer_sizes[i], layer_sizes[i + 1])
+            )
+            b = np.zeros(layer_sizes[i + 1])
+
             self.weights_.append(W)
             self.biases_.append(b)
 
@@ -178,9 +155,14 @@ class MultilayerPerceptron:
     def _forward(self, X):
         activations = [X]
 
-        for W, b in zip(self.weights_, self.biases_):
+        for i, (W, b) in enumerate(zip(self.weights_, self.biases_)):
             Z = activations[-1] @ W + b
-            A = sigmoid(Z)
+
+            if i == len(self.weights_) - 1:
+                A = sigmoid(Z)   # output layer
+            else:
+                A = relu(Z)      # hidden layers
+
             activations.append(A)
 
         return activations
@@ -194,20 +176,20 @@ class MultilayerPerceptron:
         grads_b = []
 
         y = y.reshape(-1, 1)
-        delta = activations[-1] - y  # BCE + sigmoid simplification
+        delta = activations[-1] - y  # BCE + sigmoid
 
         for i in reversed(range(len(self.weights_))):
             A_prev = activations[i]
             W = self.weights_[i]
 
             dW = A_prev.T @ delta / len(y)
-            db = delta.mean(axis=0, keepdims=True)
+            db = delta.mean(axis=0)
 
             grads_W.insert(0, dW)
             grads_b.insert(0, db)
 
             if i > 0:
-                delta = (delta @ W.T) * sigmoid_derivative(activations[i])
+                delta = (delta @ W.T) * relu_derivative(activations[i])
 
         return grads_W, grads_b
 
@@ -229,7 +211,6 @@ class MultilayerPerceptron:
             activations = self._forward(X)
             y_pred = activations[-1]
 
-            # Binary cross-entropy
             loss = -np.mean(
                 y * np.log(y_pred + 1e-9)
                 + (1 - y) * np.log(1 - y_pred + 1e-9)
@@ -253,6 +234,9 @@ class MultilayerPerceptron:
     # ------------------------------------------------------------------
 
     def predict_proba(self, X):
+        if self.weights_ is None:
+            raise TypeError("Model has not been fit yet.")
+
         X = _validate_inputs(X)
         activations = self._forward(X)
         return activations[-1].ravel()
