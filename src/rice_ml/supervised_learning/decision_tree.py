@@ -1,3 +1,43 @@
+"""
+Decision Tree Classifier (CART-style)
+
+This module implements a decision tree classifier from scratch using
+Gini impurity as the splitting criterion. The tree is constructed
+recursively by selecting feature–threshold splits that minimize the
+weighted Gini impurity of the resulting child nodes.
+
+Design Goals
+------------
+- Educational clarity over performance optimization
+- Explicit, readable implementation of the CART algorithm
+- Minimal dependencies (NumPy only)
+- sklearn-style public API: fit, predict, predict_proba, score
+
+Key Characteristics
+-------------------
+- Binary splits on continuous features
+- Greedy, top-down recursive tree construction
+- Support for:
+    * Maximum tree depth
+    * Minimum samples per split
+    * Minimum samples per leaf
+    * Feature subsampling (for ensemble methods)
+- Stores class probabilities at each node for probabilistic prediction
+
+Implementation Notes
+--------------------
+- Tree nodes are represented by a lightweight internal _TreeNode class
+- Stopping conditions enforce purity, depth limits, and sample thresholds
+- Feature subsampling enables compatibility with Random Forest-style ensembles
+- This implementation is intended for instructional use and small datasets
+
+This module does not attempt to match the performance, memory efficiency,
+or numerical stability of production-grade libraries such as scikit-learn.
+Instead, it aims to closely mirror the underlying algorithmic logic of
+decision trees in a transparent and inspectable manner.
+"""
+
+
 from __future__ import annotations
 from typing import Optional
 import numpy as np

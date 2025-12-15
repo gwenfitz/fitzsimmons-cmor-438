@@ -1,3 +1,48 @@
+"""
+Gradient Descent Optimization Algorithms
+
+This module implements simple gradient descent optimizers from scratch
+for both one-dimensional and multi-dimensional objective functions.
+The implementations are intentionally minimal and designed to illustrate
+the core mechanics of gradient-based optimization.
+
+Design Goals
+------------
+- Educational clarity over performance or generality
+- Explicit update rules with minimal abstraction
+- Support for both scalar and vector-valued parameters
+- Transparent convergence behavior via parameter history tracking
+
+Implemented Optimizers
+----------------------
+- GradientDescent1D:
+    Gradient descent for scalar-valued parameters w ∈ ℝ, given an
+    explicit derivative df/dw.
+
+- GradientDescentND:
+    Gradient descent for vector-valued parameters w ∈ ℝⁿ, given a
+    gradient function ∇f(w).
+
+Key Characteristics
+-------------------
+- Fixed learning rate (no adaptive schedules)
+- Simple stopping criterion based on parameter change magnitude
+- Stores full optimization trajectory for visualization and analysis
+- NumPy-based implementation with no external dependencies
+
+Implementation Notes
+--------------------
+- These optimizers are not tied to any specific model class
+- They are intended for demonstration, experimentation, and
+  instructional use rather than large-scale optimization
+- Numerical stability and advanced features (momentum, Adam, etc.)
+  are intentionally omitted for clarity
+
+This module provides a foundation for understanding how gradient-based
+learning algorithms operate at a fundamental level.
+"""
+
+
 import numpy as np
 from typing import Callable
 

@@ -1,3 +1,43 @@
+"""
+Preprocessing Utilities
+
+This module implements common data preprocessing utilities used prior to
+training machine learning models. All functions are implemented from
+scratch using NumPy and are designed to make the effects of preprocessing
+explicit and easy to understand.
+
+Design Goals
+------------
+- Provide minimal, transparent preprocessing operations
+- Emphasize how feature scaling affects downstream algorithms
+- Avoid hidden state or object-oriented abstractions
+- Support reproducible data splitting
+
+Implemented Functions
+---------------------
+- minmax_scale:
+    Scales each feature independently to the range [0, 1].
+
+- standardize:
+    Centers features to zero mean and rescales to unit variance.
+
+- train_test_split:
+    Splits data into training and testing sets with optional shuffling
+    and reproducible randomness.
+
+Implementation Notes
+--------------------
+- All functions operate directly on NumPy arrays
+- Division-by-zero safeguards are included for constant features
+- No data normalization parameters are stored or reused
+- Designed for educational use and small to medium-sized datasets
+
+These preprocessing utilities are intended to be used consistently
+across supervised and unsupervised learning algorithms in the rice_ml
+package and to illustrate the critical role of data preparation in
+machine learning workflows.
+"""
+
 import numpy as np
 from typing import Tuple, Optional
 

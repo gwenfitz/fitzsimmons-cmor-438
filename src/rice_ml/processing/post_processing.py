@@ -1,3 +1,47 @@
+"""
+Post-processing Metrics and Evaluation Utilities
+
+This module implements common evaluation metrics used to assess the
+performance of supervised learning models. All metrics are implemented
+from scratch using NumPy and are designed for clarity, correctness,
+and instructional use.
+
+Design Goals
+------------
+- Provide transparent, minimal implementations of standard metrics
+- Avoid reliance on external machine learning libraries
+- Enforce explicit input validation and well-defined behavior
+- Serve as educational references for how evaluation metrics work
+
+Implemented Metrics
+-------------------
+- accuracy_score:
+    Computes the fraction of correctly classified samples.
+
+- r2_score:
+    Computes the coefficient of determination (R²) for regression tasks,
+    measuring the proportion of variance explained by the model.
+
+- mean_squared_error:
+    Computes the average squared difference between true and predicted
+    continuous targets.
+
+- confusion_matrix:
+    Computes a confusion matrix for classification tasks, with class
+    labels sorted in increasing order.
+
+Implementation Notes
+--------------------
+- All functions operate on NumPy arrays or array-like inputs
+- Input shapes and lengths are validated explicitly
+- Metrics follow their standard mathematical definitions
+- Edge cases (such as constant targets in R²) are handled explicitly
+
+These utilities are intended to be used in conjunction with the
+supervised learning models provided in the rice_ml package and to
+reinforce understanding of how model evaluation metrics are computed.
+"""
+
 import numpy as np
 from typing import Any
 

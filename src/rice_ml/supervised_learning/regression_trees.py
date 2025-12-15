@@ -1,3 +1,46 @@
+"""
+Regression Tree (CART-style)
+
+This module implements a regression tree from scratch using a
+CART-style greedy splitting algorithm. The tree recursively partitions
+the feature space to minimize Mean Squared Error (variance) within
+each leaf node.
+
+Design Goals
+------------
+- Educational clarity over computational efficiency
+- Explicit implementation of regression tree logic
+- Minimal dependencies (NumPy only)
+- sklearn-style API with fit, predict, and score methods
+
+Key Characteristics
+-------------------
+- Binary splits on continuous features
+- Greedy, top-down recursive tree construction
+- Mean Squared Error (variance reduction) as the split criterion
+- Leaf nodes store the mean target value of assigned samples
+- Supports depth and sample-based stopping conditions
+
+Implementation Notes
+--------------------
+- Tree nodes are represented by a lightweight internal _TreeNode class
+- All possible feature thresholds are evaluated for split selection
+- No pruning is performed beyond user-defined stopping rules
+- Randomness is not used in split selection, ensuring deterministic behavior
+
+Limitations
+-----------
+- Exhaustive split search is computationally expensive
+- Not suitable for large datasets or high-dimensional feature spaces
+- Lacks pruning, regularization, and advanced optimizations
+- Intended for instructional use rather than production deployment
+
+This implementation closely mirrors the mathematical formulation of
+regression trees and serves as a transparent reference for understanding
+how decision tree regression models partition feature space.
+"""
+
+
 from __future__ import annotations
 import numpy as np
 from typing import Optional, Tuple

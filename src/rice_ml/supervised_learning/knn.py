@@ -1,3 +1,57 @@
+"""
+k-Nearest Neighbors (kNN)
+
+This module implements k-Nearest Neighbors classification and regression
+from scratch using NumPy. The kNN algorithm is a non-parametric, instance-
+based learning method that makes predictions by aggregating information
+from the k closest training samples in feature space.
+
+Design Goals
+------------
+- Clear, from-scratch implementation of kNN without external dependencies
+- Support for both classification and regression
+- Explicit distance computations and neighbor selection
+- sklearn-style API with fit, predict, predict_proba, and score methods
+
+Implemented Models
+------------------
+- KNNClassifier:
+    Performs classification by majority vote (uniform weights) or
+    distance-weighted voting among nearest neighbors.
+
+- KNNRegressor:
+    Performs regression by averaging target values of nearest neighbors,
+    with optional distance-based weighting.
+
+Key Characteristics
+-------------------
+- Supports Euclidean and Manhattan distance metrics
+- Configurable number of neighbors (k)
+- Uniform or distance-based weighting schemes
+- Exact (brute-force) neighbor search for clarity
+- Deterministic behavior with no learned parameters
+
+Implementation Notes
+--------------------
+- Distance computations are implemented explicitly for instructional
+  transparency rather than relying on optimized libraries
+- Neighbor selection uses partial sorting for efficiency while remaining
+  easy to follow
+- Input validation helpers enforce correct array shapes and types
+- This implementation is intended for small to medium-sized datasets and
+  educational use
+
+Limitations
+-----------
+- Brute-force neighbor search scales poorly with dataset size
+- No support for approximate nearest neighbors or tree-based indexing
+- Performance is not optimized for high-dimensional data
+
+This module emphasizes conceptual understanding of kNN and its reliance
+on distance metrics, feature scaling, and local data structure.
+"""
+
+
 from __future__ import annotations
 from typing import Literal, Union, Sequence
 import numpy as np
