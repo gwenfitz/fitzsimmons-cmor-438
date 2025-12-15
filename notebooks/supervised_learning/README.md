@@ -207,3 +207,23 @@ illustrating how each algorithm behaves in practice.
 - Datasets are stored locally within the relevant subfolders or loaded from
   public sources.
 - Mathematical expressions are written using GitHub-compatible LaTeX.
+
+## Folder Organization
+
+supervised_learning/
+├── Decision Tree/
+│   └── decision_tree_ex.ipynb
+├── Ensemble Methods/
+│   └── ensemble_methods_example.ipynb
+├── KNN/
+│   └── knn_example.ipynb
+├── Linear Regression/
+│   └── linear_regression_boston.ipynb
+├── Logistic Regression/
+│   └── logistic_regression_pima.ipynb
+├── Multilayer Perceptron/
+│   └── multilayer_perceptron_example.ipynb
+├── Perceptron/
+│   └── perceptron_example.ipynb
+Regression Trees/
+│   └── regression_trees_example.ipynb

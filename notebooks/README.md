@@ -41,7 +41,7 @@ and **why the algorithms behave as they do**.
 
 ## 🔍 Unsupervised Learning
 
-**Folder:** `unsupervised/`
+**Folder:** `unsupervised_learning/`
 
 These notebooks focus on unsupervised learning and structure discovery,
 including:
@@ -49,6 +49,7 @@ including:
 - Density-based clustering (DBSCAN)
 - Dimensionality reduction (PCA)
 - Graph-based community detection (Label Propagation)
+- K-Means Clustering
 
 Each unsupervised notebook provides:
 
