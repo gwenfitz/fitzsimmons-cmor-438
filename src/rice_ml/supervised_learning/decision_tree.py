@@ -1,22 +1,29 @@
 from __future__ import annotations
-from dataclasses import dataclass
-from typing import Optional, Tuple
+from typing import Optional
 import numpy as np
 
 
 # ==========================================================
 # Tree Node Structure
 # ==========================================================
-@dataclass
 class _TreeNode:
     """
     Internal tree node representation.
     """
-    feature_index: Optional[int] = None
-    threshold: Optional[float] = None
-    left: Optional["_TreeNode"] = None
-    right: Optional["_TreeNode"] = None
-    proba: Optional[np.ndarray] = None
+
+    def __init__(
+        self,
+        feature_index: Optional[int] = None,
+        threshold: Optional[float] = None,
+        left: Optional["_TreeNode"] = None,
+        right: Optional["_TreeNode"] = None,
+        proba: Optional[np.ndarray] = None,
+    ):
+        self.feature_index = feature_index
+        self.threshold = threshold
+        self.left = left
+        self.right = right
+        self.proba = proba
 
     def is_leaf(self) -> bool:
         return self.feature_index is None
