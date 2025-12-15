@@ -47,6 +47,7 @@ rice_ml/
 │   └── community_detection.py
 │
 └── __init__.py
+```
 
 Each module is self-contained and mirrors the structure and behavior of its theoretical counterpart.
 
