@@ -58,9 +58,9 @@ Each module is self-contained and mirrors the structure and behavior of its theo
 Utilities for preparing data before and after modeling.
 
 **Includes:**
-- Feature standardization  
-- Common preprocessing transformations  
-- Post-processing helpers for model outputs  
+- Feature standardization and normalization
+- Common preprocessing transformations (scaling, train/test, splitting)  
+- Post-processing helpers for model outputs (accuracy, MSE, R^2, confusion matrix)
 
 These utilities are intentionally minimal and designed to expose how preprocessing affects downstream algorithms.
 
