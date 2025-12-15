@@ -39,7 +39,7 @@ decision trees in a transparent and inspectable manner.
 
 
 from __future__ import annotations
-from typing import Optional
+from typing import Optional, Tuple
 import numpy as np
 
 # ==========================================================
